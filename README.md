@@ -7,6 +7,7 @@ Repositorio separado para los servicios que corren en Cloud Run.
 - `ces-session-bridge/`: puente de autenticacion y seguimiento de sesion.
 - `voice-commerce-bridge/`: puente de compras, push de pago y estados de orden.
 - `wrapper-channel/`: backend cloud del canal de voz del wrapper.
+- `gemini-live-hello/`: demo minimo de Gemini Live para saludar usando una cedula.
 
 ## Relacion con los otros repos
 
@@ -36,6 +37,14 @@ gcloud run deploy voice-commerce-bridge \
 ```bash
 gcloud run deploy wrapper-channel \
   --source /Users/C810865/Documents/W/CODEX_BLUE_AGENTS/gcp/wrapper-channel \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --project team-blue-agents
+```
+
+```bash
+gcloud run deploy gemini-live-hello \
+  --source /Users/C810865/Documents/W/CODEX_BLUE_AGENTS/gcp/gemini-live-hello \
   --region us-central1 \
   --allow-unauthenticated \
   --project team-blue-agents

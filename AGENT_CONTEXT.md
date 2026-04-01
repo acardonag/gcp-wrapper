@@ -9,6 +9,7 @@ It is split into two independent services:
 - `ces-session-bridge/`: session orchestration, auth result storage, chat/result routing.
 - `voice-commerce-bridge/`: product lookup, draft order creation, payment push, payment result finalization.
 - `wrapper-channel/`: cloud-hosted wrapper backend, chat proxy, and session polling front door.
+- `gemini-live-hello/`: minimal Gemini Live proof-of-concept that greets a user by cedula.
 
 This repo is **not** the PWA frontend and is **not** the wrapper. It only hosts the server-side bridges.
 
@@ -31,6 +32,11 @@ This repo is **not** the PWA frontend and is **not** the wrapper. It only hosts 
   - routes conversational chat to CES or other backends
   - exposes auth and purchase polling endpoints
   - can replace the local-only wrapper backend in Cloud Run
+
+- `gemini-live-hello/server.mjs`
+  - looks up the user by cedula from the existing commerce bridge
+  - opens a Gemini Live session in text mode
+  - returns a short greeting and proof that Live API is working
 
 ## Runtime flow
 
@@ -93,3 +99,4 @@ gcloud run deploy voice-commerce-bridge \
 - Keep the repo focused on bridge logic and deployment manifests.
 - The wrapper should read auth from CES and payment from `voice-commerce-bridge`; never mix the two.
 - `wrapper-channel` exists to move the wrapper backend out of localhost and into Cloud Run.
+- `gemini-live-hello` is the smallest safe proof-of-concept for replacing the wrapper-generated conversational response with Gemini Live directly.
